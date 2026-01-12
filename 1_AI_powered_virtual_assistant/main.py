@@ -14,7 +14,12 @@ def speak(text):
     engine.runAndWait()
     engine.stop()
 
-
+def processCommand(c):
+    if "open google" in c.lower():
+        wb.open("https://google.com")
+    elif "open youtube" in c:
+        wb.open("https://youtube.com")
+    
 if __name__ == "__main__":
     speak("Initializing virtual assistant jarvis")
     time.sleep(1)
@@ -40,11 +45,12 @@ while True:
             with sr.Microphone() as source:
                 print("jervis activeted...")
                 audio = recognizer.listen(source)
-                command = recognizer.recognize_google(audio).lower()
-                print(f"Command: {command}")
+                c = recognizer.recognize_google(audio).lower()
+                print(f"Command: {c}")
             
             
             # Process commands
+            processCommand(c)
             
     except sr.UnknownValueError:
         print("Could not understand audio")
