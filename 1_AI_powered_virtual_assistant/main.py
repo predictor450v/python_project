@@ -26,7 +26,7 @@ if __name__== "__main__":
             print("Listening...")
             audio = r.listen(source)
 
-        # recognize speech using Sphinx
+        # recognize speech using Google
         try:
             command =recognizer.recognize_google(audio)
             print(command)
