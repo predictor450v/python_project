@@ -2,6 +2,7 @@ import speech_recognition as sr
 import webbrowser as wb
 import pyttsx3
 import time
+import datetime
 
 recognizer = sr.Recognizer()
 
@@ -12,7 +13,7 @@ def speak(text):
     # Set properties inside here too
     engine.setProperty('rate', 170)
     voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[1].id) # Make sure this index [1] exists!
+    engine.setProperty('voice', voices[1].id) # Make sure this index [1] exists! for female voice
     
     # Speak
     engine.say(text)
@@ -20,17 +21,33 @@ def speak(text):
     engine.stop() # Force close the loop
 
 def processCommand(c):   #command block for webpages
-    if "open google" in c.lower(): 
+    if "google" in c.lower(): 
         wb.open("https://google.com")
-    elif "open youtube" in c.lower():
+    elif "youtube" in c.lower():
         wb.open("https://youtube.com")
-    
+    elif "chatgpt" in c.lower():
+        wb.open("https://chatgpt.com/")
+    elif "github" in c.lower():
+        wb.open("https://github.com/predictor450v?tab=overview&from=2026-01-01&to=2026-01-12")
+    elif "portfolio" in c.lower():
+        wb.open("https://my-portfolio-bay-psi-99.vercel.app/")
+    elif "gemini"or"geminai" in c.lower():
+        wb.open("https://gemini.google.com/u/2/app?pageId=none")
+    elif "time" in c:
+        # New feature: Tells current time
+        current_time = datetime.datetime.now().strftime("%I:%M %p")
+        speak(f"The time is {current_time}")
+
+
+
+
+
 if __name__ == "__main__":
-    speak("Initializing virtual assistant jarvis")
+    speak("Initializing virtual assistant Friday")
     time.sleep(1)
 
     while True:
-        print("Say 'Jarvis' to activate...")
+        print("Say 'Friday' to activate...")
 
         try:
             with sr.Microphone() as source:
@@ -40,7 +57,7 @@ if __name__ == "__main__":
             word = recognizer.recognize_google(audio).lower()
             print(f"You said: {word}")
             
-            if "jarvis" in word:
+            if "friday" in word:
                 print("Wake word detected!")
                 speak("tell me")
                 time.sleep(1)
