@@ -29,14 +29,14 @@ if __name__== "__main__":
             with sr.Microphone() as source:
                 print("Listening...")
                 audio = recognizer.listen(source ,timeout =1 ,phrase_time_limit=3)
-            word = recognizer.recognizer.recognize_whisper(audio, model="base")
+            word = recognizer.recognize_whisper(audio, model="base")
             if(word.lower()=="jarvis"):
                 speak("how can i help you master?")
            
                 with sr.Microphone() as source:
                     print("jarvis active...")
                     audio = recognizer.listen(source)
-                    command = recognizer.recognize_google(audio)
+                    command = recognizer.recognize_whisper(audio, model="base")(audio)
 
 
         except sr.UnknownValueError:
