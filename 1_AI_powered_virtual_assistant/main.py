@@ -29,7 +29,7 @@ if __name__== "__main__":
             with sr.Microphone() as source:
                 print("Listening...")
                 audio = recognizer.listen(source ,timeout =1 ,phrase_time_limit=3)
-            word = recognizer.recognize_google(audio)
+            word = recognizer.recognizer.recognize_whisper(audio, model="base")
             if(word.lower()=="jarvis"):
                 speak("how can i help you master?")
            
