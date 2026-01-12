@@ -1,10 +1,13 @@
+import pyautogui
 import speech_recognition as sr
 import webbrowser as wb
 import pyttsx3
 import time
 import datetime
+import requests
 
 recognizer = sr.Recognizer()
+newsapikey ="73f93b69397a4444ae9fc402b7eac875"
 
 def speak(text):
     # Initialize the engine inside the function
@@ -31,12 +34,24 @@ def processCommand(c):   #command block for webpages
         wb.open("https://github.com/predictor450v?tab=overview&from=2026-01-01&to=2026-01-12")
     elif "portfolio" in c.lower():
         wb.open("https://my-portfolio-bay-psi-99.vercel.app/")
-    elif "gemini"or"geminai" in c.lower():
+    elif "gemini" in c.lower():
         wb.open("https://gemini.google.com/u/2/app?pageId=none")
     elif "time" in c:
         # New feature: Tells current time
         current_time = datetime.datetime.now().strftime("%I:%M %p")
         speak(f"The time is {current_time}")
+    #  Open Specific Playlist 
+    elif "open spotify" in c or "my playlist" in c:
+        speak("Opening your Spotify playlist")
+        wb.open("https://open.spotify.com/collection/tracks")
+    elif "news" in c.lower():
+        r = requests.get(f"https://newsapi.org/v2/everything?q=india&from=2026-01-01&sortBy=publishedAt&apiKey={newsapikey}")
+        if r.status_code == 200:
+            data =r.json()
+            articles = data.get('articles',[])
+            for arcticle in articles:
+                speak(arcticle['title'])
+
 
 
 
@@ -52,7 +67,7 @@ if __name__ == "__main__":
         try:
             with sr.Microphone() as source:
                 print("Listening...")
-                audio = recognizer.listen(source, timeout=2, phrase_time_limit=1)
+                audio = recognizer.listen(source, timeout=2, phrase_time_limit=2)
             
             word = recognizer.recognize_google(audio).lower()
             print(f"You said: {word}")
@@ -60,12 +75,12 @@ if __name__ == "__main__":
             if "friday" in word:
                 print("Wake word detected!")
                 speak("tell me")
-                time.sleep(1)
+                
                 
                 
             
                 with sr.Microphone() as source:
-                    print("jervis activeted...\ngive command...")
+                    print("Friday activeted...\ngive command...")
                     audio = recognizer.listen(source)
                     c = recognizer.recognize_google(audio).lower()
                     print(f"Command: {c}")
