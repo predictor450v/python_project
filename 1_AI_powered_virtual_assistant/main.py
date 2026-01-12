@@ -3,16 +3,17 @@ import webbrowser as wb
 import pyttsx3
 
 recognizer =sr.Recognizer()
+recognizer.energy_threshold = 3000
+recognizer.dynamic_energy_threshold = True
+
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)  
 
 
 def speak(text):
-    engine.say(text)
-    
+    engine.say(text)   
     engine.runAndWait()
-
 
 if __name__== "__main__":
     speak("Initializing virtual assistant jarvis....")
@@ -27,11 +28,15 @@ if __name__== "__main__":
         try:
             with sr.Microphone() as source:
                 print("Listening...")
-                audio = recognizer.listen(source ,timeout =1 ,phrase_time_limit=1)
-            command =recognizer.recognize_google(audio).lower()
-            print(command)
-            if "jarvis" in command:
-                speak("Yes, how can I help you?")
+                audio = recognizer.listen(source ,timeout =1 ,phrase_time_limit=3)
+            word = recognizer.recognize_google(audio)
+            if(word.lower()=="jarvis"):
+                speak("how can i help you master?")
+           
+                with sr.Microphone() as source:
+                    print("jarvis active...")
+                    audio = recognizer.listen(source)
+                    command = recognizer.recognize_google(audio)
 
 
         except sr.UnknownValueError:
