@@ -12,3 +12,15 @@ Browse through the folders to explore individual projects. Each project contains
 - Source code
 - Documentation (where applicable)
 - Requirements/dependencies
+
+## Contributing
+
+Feel free to fork this repository and submit pull requests. Suggestions and improvements are always welcome!
+
+## Contact
+
+If you have any questions or want to connect, feel free to reach out!
+
+---
+
+⭐ If you find these projects helpful, consider giving this repository a star!
